@@ -1,7 +1,9 @@
 export default function BoardPage() {
 	return (
-		<main>
-			<h3>보드 페이지</h3>
-		</main>
+		<div className="flex flex-col items-center justify-center ">
+			<div className="bg-backgroundGrey w-full">
+
+			</div>
+		</div>
 	);
 }
