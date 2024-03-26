@@ -12,6 +12,7 @@ module.exports = {
 				textGrey: '#A2A2A4',
 				backgroundGrey: '#F6F6F6',
 				kwRed: '#890F1F',
+				darkGrey: '#D9D9D9',
 			},
 		},
 	},

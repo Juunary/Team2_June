@@ -8,6 +8,10 @@ export const routes = {
 		path: '/board',
 		title: 'BOARD',
 	},
+	detail: {
+		path: '/detail',
+		title: 'DETAIL',
+	},
 	members: {
 		path: '/members',
 		title: 'MEMBERS',
@@ -24,15 +28,27 @@ export const routes = {
 		path: '/login',
 		title: 'SIGN UP',
 	},
+	terms: {
+		path: '/terms-agreement',
+		title: 'TERMS AGREEMENT',
+	},
+	userInfo: {
+		path: '/user-info',
+		title: 'USER INFO',
+	},
 	admin: {
 		// TODO: 다른 관리자 페이지가 있다면 추가
 		auth: {
 			path: '/admin/auth',
-			title: 'Auth',
+			title: 'AUTH',
 		},
 		login: {
 			path: '/admin/login',
-			title: 'AdminLogin',
+			title: 'ADMIN LOGIN',
+		},
+		home: {
+			path: '/admin/home',
+			title: 'ADMIN HOME',
 		},
 	},
 };

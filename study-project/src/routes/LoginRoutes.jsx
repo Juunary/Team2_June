@@ -1,7 +1,11 @@
 import LoginLayout from '../layout/LoginLayout';
-import StudentLogin from '../pages/login/student/page';
-import AdminLogin from '../pages/login/admin/page';
+
 import { routes } from '../constants/routes';
+
+import StudentLogin from '../pages/authentication/student/login/page';
+import AdminLogin from '../pages/authentication/admin/login/page';
+import TermsPage from '../pages/authentication/student/terms/page';
+import UserInfoPage from '../pages/authentication/student/info/page';
 
 const loginRoutes = {
 	path: '/',
@@ -14,6 +18,14 @@ const loginRoutes = {
 		{
 			path: routes.login.path,
 			element: <StudentLogin />,
+		},
+		{
+			path: routes.terms.path,
+			element: <TermsPage />,
+		},
+		{
+			path: routes.userInfo.path,
+			element: <UserInfoPage />,
 		},
 	],
 };
