@@ -1,0 +1,16 @@
+/* 네비게이션 버튼의 배경 색상 변경 */
+.fc .fc-button-primary {
+	background-color: #890f1f; /* 새 배경 색상 */
+	border-color: #890f1f; /* 새 테두리 색상 */
+}
+
+/* 네비게이션 버튼의 텍스트 색상 변경 */
+.fc .fc-button-primary {
+	color: #fff; /* 새 텍스트 색상 */
+}
+
+/* 호버 상태에서의 네비게이션 버튼 색상 변경 */
+.fc .fc-button-primary:hover {
+	background-color: #560e18; /* 호버 시 배경 색상 */
+	border-color: #560e18; /* 호버 시 테두리 색상 */
+}
