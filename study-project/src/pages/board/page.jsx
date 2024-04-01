@@ -20,33 +20,41 @@ if (!show) return null;
 				<button className="px-2 py-3 bg-kwRed text-white font-bold focus:outline-none rounded-lg w-full">
 					글 수정하기
 				</button>
-        	</div>
+			</div>
 		</div>
 		</div>
 	);
 };
-  
 
-const Post = ({ title, content, author, onPostClick }) => (
-	<div onClick={onPostClick}>
+
+const Post = ({ title, content, author, onPostClick, postData }) => (
+	<div onClick={() => onPostClick(postData)}>
 		<p className="text-xl font-semibold text-left">{title}</p>
 		<p className="pt-2 text-sm text-left font-light">{content}</p>
 		<div className="pt-2 flex justify-between items-center">
-			<button className="bg-gray-300 text-black px-1.5 py-1.5 rounded-md text-xs">{author}</button>
-			<div>
-				<button className="pt-2 text-sm font-normal hover:underline pr-1">수정</button>
-				<button className="pt-2 text-sm font-normal hover:underline">삭제</button>
-			</div>
+		<button className="bg-gray-300 text-black px-1.5 py-1.5 rounded-md text-xs">{author}</button>
+		<div>
+			<button className="pt-2 text-sm font-normal hover:underline pr-1">수정</button>
+			<button className="pt-2 text-sm font-normal hover:underline">삭제</button>
+		</div>
 		</div>
 		<p className="border-t border-gray-300 my-4 w-full pb-3"></p>
-		</div>
+	</div>
 );
 
 export default function BoardPage() {
 
 	const [modalShow, setModalShow] = useState(false);
-	const openModal = () => setModalShow(true);
-	const closeModal = () => setModalShow(false);
+	const [selectedPost, setSelectedPost] = useState(null);
+	const openModal = (postData) => {
+		setModalShow(true);
+		setSelectedPost(postData);
+	};
+
+	const closeModal = () => {
+		setModalShow(false);
+		setSelectedPost(null);
+	};
 
 	const [currentPage, setCurrentPage] = useState(1);
 	
@@ -96,37 +104,26 @@ export default function BoardPage() {
 				<p className="border-t border-kwRed my-4 w-full"></p>
 				
 				{currentPosts.map((post, index) => (
-					<div key={index} onClick={openModal}>
+					<div key={index}>
 					<Post
 						title={post.title}
 						content={post.content}
 						author={post.author}
 						onPostClick={openModal}
+						postData={post}
 					/>
 					</div>
 				))}
-				<Modal
+				{selectedPost && (
+					<Modal
 					show={modalShow}
 					onClose={closeModal}
-					title={currentPosts[0]?.title || ''}
-					content={currentPosts[0]?.content || ''}
-				/>
+					title={selectedPost.title}
+					content={selectedPost.content}
+					/>
+				)}
 
-				{/* <div className="pt-4 flex justify-center space-x-2">
-					<button className="font-semibold text-sm">&lt;&lt;</button>
-					<button className="font-semibold text-sm">&lt;</button>
-					<button className="font-semibold text-sm">1</button>
-					<button className="font-semibold text-sm">2</button>
-					<button className="font-semibold text-sm">3</button>
-					<button className="font-semibold text-sm">4</button>
-					<button className="font-semibold text-sm">5</button>
-					<button className="font-semibold text-sm">6</button>
-					<button className="font-semibold text-sm">7</button>
-					<button className="font-semibold text-sm">8</button>
-					<button className="font-semibold text-sm">9</button>
-					<button className="font-semibold text-sm">&gt;</button>
-					<button className="font-semibold text-sm">&gt;&gt;</button>
-				</div> */}
+				
 
 				<div className=' = "pt-4 flex justify-center space-x-2'>
 					<button 
