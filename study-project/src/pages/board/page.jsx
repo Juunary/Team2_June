@@ -1,31 +1,62 @@
 import React, { useState } from 'react';
 
-const Modal = ({ show, onClose, title, content }) => {
+const Modal = ({ show, onClose, title, initialContent }) => {
+	const [content, setContent] = useState(initialContent);
+	const [isEditing, setIsEditing] = useState(false);
+	const handleEditClick = () => {
+		setIsEditing(true);
+	};
+
+	const handleSaveClick = () => {
+		setIsEditing(false);
+		
+	};
 if (!show) return null;
-	return (
+return (
 		<div className="pt-20 fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
 		<div className="bg-white w-1/2 h-4/5 p-4 relative flex flex-col">
-			<button onClick={onClose} className="absolute top-2 right-2 m-2 text-2xl">X</button>
-			
+			<button onClick={onClose} className="absolute top-2 right-2 m-2 text-2xl">
+			X
+			</button>
+
 			<div className="flex-grow">
 			<h2 className="pl-2 pt-6 text-2xl font-semibold text-left">{title}</h2>
 			<div className="pt-2 py-2 text-left">
 				<span className="pl-2 bg-gray-200 text-xs font-light px-4 py-2 rounded-3xl">#해시태그1</span>
 			</div>
 			<p className="border-t border-gray-300 my-4 w-full "></p>
-			<p className="pl-2 pt-2 text-sm text-left font-light">{content}</p>
+			{isEditing ? (
+				<textarea
+				className="pl-2 pt-2 text-sm text-left font-light w-full h-40 resize-none"
+				value={content}
+				onChange={(e) => setContent(e.target.value)}
+				/>
+			) : (
+				<p className="pl-2 pt-2 text-sm text-left font-light">{content}</p>
+			)}
 			</div>
 
 			<div className="px-60">
-				<button className="px-2 py-3 bg-kwRed text-white font-bold focus:outline-none rounded-lg w-full">
-					글 수정하기
+			{isEditing ? (
+				<button
+				className="px-2 py-3 bg-kwRed text-white font-bold focus:outline-none rounded-lg w-full"
+				onClick={handleSaveClick}
+				>
+				저장하기
 				</button>
+			) : (
+				<button
+				className="px-2 py-3 bg-kwRed text-white font-bold focus:outline-none rounded-lg w-full"
+				onClick={handleEditClick}
+				>
+				글 수정하기
+				</button>
+			)}
 			</div>
 		</div>
 		</div>
 	);
-};
-
+	};
 
 const Post = ({ title, content, author, onPostClick, postData }) => (
 	<div onClick={() => onPostClick(postData)}>
