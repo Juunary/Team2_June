@@ -48,7 +48,43 @@ export default function BoardPage() {
 	const openModal = () => setModalShow(true);
 	const closeModal = () => setModalShow(false);
 
+	const [currentPage, setCurrentPage] = useState(1);
+	
+	const postsPerPage = 4;
 
+	const posts = [
+		{
+		title: '[React] 리액트에 대해 알아보자',
+		content: '리액트 어쩌구 저쩌구',
+		author: '김코딩',
+		},
+		{
+		title: '[JavaScript] 에 대해 알아보자',
+		content: '자바스크립트에서 어쩌구 저쩌구',
+		author: '이코드',
+		},
+		{
+		title: '[CSS] 반응형 웹 디자인에 대해 알아보자',
+		content: '디자인  어쩌구 저쩌구',
+		author: '박디자인',
+		},
+		{
+		title: '[Node.js] 서버 에 대해 알아보자',
+		content: 'Node.js 어쩌구 저쩌구',
+		author: '최백엔드',
+		},
+		{
+		title: '[Git] Git에 대해 알아보자',
+		content: 'Git 어쩌구 저쩌구',
+		author: '강개발자',
+		},
+	];
+	const indexOfLastPost = currentPage * postsPerPage;
+	const indexOfFirstPost = indexOfLastPost - postsPerPage;
+	const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+	const paginate = (pageNumber) => setCurrentPage(pageNumber);
+	
 	return (
 		
 		<div className="flex flex-col items-center justify-center ">
@@ -59,24 +95,24 @@ export default function BoardPage() {
 				<p className=" pt-6 text-xs font-light text-left">제목으로 검색하기</p>
 				<p className="border-t border-kwRed my-4 w-full"></p>
 				
-				
-				<div onClick={openModal}>
+				{currentPosts.map((post, index) => (
+					<div key={index} onClick={openModal}>
 					<Post
-					title={"[Typescript] 오늘은 타입스크립트에 대해서 공부 했어요"}
-					content={"입스크립트 어쩌구 저쩌구"}
-					author={"서대원"}
-					onPostClick={openModal}
+						title={post.title}
+						content={post.content}
+						author={post.author}
+						onPostClick={openModal}
 					/>
-				</div>
+					</div>
+				))}
+				<Modal
+					show={modalShow}
+					onClose={closeModal}
+					title={currentPosts[0]?.title || ''}
+					content={currentPosts[0]?.content || ''}
+				/>
 
-				<Modal 
-				show={modalShow} 
-				onClose={closeModal}
-				title={"[Typescript] 오늘은 타입스크립트에 대해서 공부 했어요"}
-				content={"입스크립트 어쩌구 저쩌구"}>
-				</Modal>
-				
-				<div className="pt-4 flex justify-center space-x-2">
+				{/* <div className="pt-4 flex justify-center space-x-2">
 					<button className="font-semibold text-sm">&lt;&lt;</button>
 					<button className="font-semibold text-sm">&lt;</button>
 					<button className="font-semibold text-sm">1</button>
@@ -90,6 +126,32 @@ export default function BoardPage() {
 					<button className="font-semibold text-sm">9</button>
 					<button className="font-semibold text-sm">&gt;</button>
 					<button className="font-semibold text-sm">&gt;&gt;</button>
+				</div> */}
+
+				<div className=' = "pt-4 flex justify-center space-x-2'>
+					<button 
+					className='font-semibold text-sm'
+					onClick={()=>paginate(currentPage-1)}
+					disabled = {currentPage === 1}>
+						&lt;&lt;
+					</button>
+					{Array.from({ length: Math.ceil(posts.length / postsPerPage) }, (_, i) => (
+						<button
+							key={i + 1}
+							className="font-semibold text-sm"
+							onClick={() => paginate(i + 1)}
+							style={{ fontWeight: currentPage === i + 1 ? 'bold' : 'normal' }}
+						>
+							{i + 1}
+						</button>
+					))}
+					<button
+						className="font-semibold text-sm"
+						onClick={() => paginate(currentPage + 1)}
+						disabled={currentPage === Math.ceil(posts.length / postsPerPage)}
+						>
+						&gt;&gt;
+					</button>
 				</div>
 				<div className="pt-5 pb-5 flex justify-center items-center">
 					<button className=" bg-kwRed text-white font-bold py-2 px-4 focus:outline-none rounded-3xl">
