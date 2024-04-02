@@ -90,8 +90,15 @@ export default function BoardPage() {
 	const [currentPage, setCurrentPage] = useState(1);
 	
 	const postsPerPage = 4;
-
+	const post_empty = [
+		{
+			title: 'write me',
+			content: 'write me',
+			author: 'write me',
+		}
+	]
 	const posts = [
+		
 		{
 		title: '[React] 리액트에 대해 알아보자',
 		content: '리액트 어쩌구 저쩌구',
@@ -131,7 +138,14 @@ export default function BoardPage() {
 			<div className=" flex flex-col flex-grow mx-auto w-2/5">
 				<p className="pt-32 text-3xl font-medium text-center">자유 게시판</p>
 				<p className="pt-2 text-sm text-center  font-light">자유로운 고민과 연구를 홍보할 수 있어요</p>
-				<p className=" pt-6 text-xs font-light text-left">제목으로 검색하기</p>
+				<button>{/*onclick 구현해야함 */}
+					<div className='pt-6 flex items-center'>
+						<img src="/public/search.png" style={{ width: '15px', height: '15px' }} />
+						<p className=" text-xs font-light ml-2">제목으로 검색하기</p>
+					</div>
+				</button>
+				
+				
 				<p className="border-t border-kwRed my-4 w-full"></p>
 				
 				{currentPosts.map((post, index) => (
@@ -183,13 +197,18 @@ export default function BoardPage() {
 				</div>
 				<div className="pt-5 pb-5 flex justify-center items-center">
 				
-					<button style={{ width: '300px', height: '150px' }}
-					className=" bg-kwRed text-white font-bold py-2 px-4 focus:outline-none rounded-3xl">
-					<div className="  mb-4">
-						<img src="/public/write.png"  style={{ width: '20px', height: 'auto' }} />
-					</div>
-					<p className="text-white text-sm font-semibold">글 작성하기</p>
+					<button style={{ width: '160px', height: '50px' }} 
+					className=" bg-kwRed text-white font-bold flex justify-center items-center focus:outline-none rounded-3xl"
+					onClick={openModal}
+					title={post_empty.title}
+					content={post_empty.content}
+					author={post_empty.author}>
+						<div className="pr-3">
+							<img src="/public/write.png" style={{ width: '20px', height: 'auto' }} />
+						</div>
+						<p className="text-white text-sm font-semibold">글 작성하기</p>
 					</button>
+
 				</div>
 			</div>
 			</div>
