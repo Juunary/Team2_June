@@ -182,8 +182,13 @@ export default function BoardPage() {
 					</button>
 				</div>
 				<div className="pt-5 pb-5 flex justify-center items-center">
-					<button className=" bg-kwRed text-white font-bold py-2 px-4 focus:outline-none rounded-3xl">
-						00 글 작성하기
+				
+					<button style={{ width: '300px', height: '150px' }}
+					className=" bg-kwRed text-white font-bold py-2 px-4 focus:outline-none rounded-3xl">
+					<div className="  mb-4">
+						<img src="/public/write.png"  style={{ width: '20px', height: 'auto' }} />
+					</div>
+					<p className="text-white text-sm font-semibold">글 작성하기</p>
 					</button>
 				</div>
 			</div>
