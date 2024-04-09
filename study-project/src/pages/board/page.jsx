@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { posts } from './_data/mock';
-import Pagination from './pagenation';
+import Pagination from './pagination';
 const Modal = ({ show, onClose, title, initialContent }) => {
 	const [content, setContent] = useState(initialContent);
 	const [isEditing, setIsEditing] = useState(false);
