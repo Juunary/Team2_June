@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { posts } from './_data/mock';
+import Pagination from './pagenation';
 const Modal = ({ show, onClose, title, initialContent }) => {
 	const [content, setContent] = useState(initialContent);
 	const [isEditing, setIsEditing] = useState(false);
@@ -97,34 +98,7 @@ export default function BoardPage() {
 			author: 'write me',
 		}
 	]
-	const posts = [
-		
-		{
-		title: '[React] 리액트에 대해 알아보자',
-		content: '리액트 어쩌구 저쩌구',
-		author: '김코딩',
-		},
-		{
-		title: '[JavaScript] 에 대해 알아보자',
-		content: '자바스크립트에서 어쩌구 저쩌구',
-		author: '이코드',
-		},
-		{
-		title: '[CSS] 반응형 웹 디자인에 대해 알아보자',
-		content: '디자인  어쩌구 저쩌구',
-		author: '박디자인',
-		},
-		{
-		title: '[Node.js] 서버 에 대해 알아보자',
-		content: 'Node.js 어쩌구 저쩌구',
-		author: '최백엔드',
-		},
-		{
-		title: '[Git] Git에 대해 알아보자',
-		content: 'Git 어쩌구 저쩌구',
-		author: '강개발자',
-		},
-	];
+	
 	const indexOfLastPost = currentPage * postsPerPage;
 	const indexOfFirstPost = indexOfLastPost - postsPerPage;
 	const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -170,31 +144,12 @@ export default function BoardPage() {
 
 				
 
-				<div className=' = "pt-4 flex justify-center space-x-2'>
-					<button 
-					className='font-semibold text-sm'
-					onClick={()=>paginate(currentPage-1)}
-					disabled = {currentPage === 1}>
-						&lt;&lt;
-					</button>
-					{Array.from({ length: Math.ceil(posts.length / postsPerPage) }, (_, i) => (
-						<button
-							key={i + 1}
-							className="font-semibold text-sm"
-							onClick={() => paginate(i + 1)}
-							style={{ fontWeight: currentPage === i + 1 ? 'bold' : 'normal' }}
-						>
-							{i + 1}
-						</button>
-					))}
-					<button
-						className="font-semibold text-sm"
-						onClick={() => paginate(currentPage + 1)}
-						disabled={currentPage === Math.ceil(posts.length / postsPerPage)}
-						>
-						&gt;&gt;
-					</button>
-				</div>
+				<Pagination
+					currentPage={currentPage}
+					postsPerPage={postsPerPage}
+					totalPosts={posts.length}
+					paginate={paginate}
+				/>
 				<div className="pt-5 pb-5 flex justify-center items-center">
 				
 					<button style={{ width: '160px', height: '50px' }} 
